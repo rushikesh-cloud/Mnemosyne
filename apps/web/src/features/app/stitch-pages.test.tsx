@@ -14,7 +14,7 @@ describe("Stitch-backed pages", () => {
     expect(screen.getByText("Q3 Earnings Analysis")).toBeInTheDocument();
     expect(screen.getByText("Gemini 1.5 Pro")).toBeInTheDocument();
     expect(screen.getByText("Reasoning Process (4.2s)")).toBeInTheDocument();
-    expect(screen.getByText("Tool Call:")).toBeInTheDocument();
+    expect(screen.getAllByText("Tool Call:")).toHaveLength(2);
     expect(screen.getByText("Mnemosyne can make mistakes. Verify critical operational data.")).toBeInTheDocument();
   });
 

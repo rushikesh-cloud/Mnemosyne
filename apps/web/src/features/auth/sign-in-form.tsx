@@ -1,0 +1,91 @@
+"use client";
+
+import { FormEvent, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { MaterialIcon } from "@/components/material-icon";
+import { createBrowserSupabaseClient, type SupabaseAuthClient } from "@/lib/auth/auth-client";
+
+type SignInFormProps = {
+  authClient?: SupabaseAuthClient;
+  onSignedIn?: (path: "/chat") => void;
+};
+
+export function SignInForm({ authClient, onSignedIn }: SignInFormProps) {
+  const router = useRouter();
+  const client = useMemo(() => authClient ?? createBrowserSupabaseClient(), [authClient]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+
+    if (!email || !password) {
+      setError("Email and password are required.");
+      return;
+    }
+
+    setLoading(true);
+    const { error: authError } = await client.auth.signInWithPassword({ email, password });
+    setLoading(false);
+
+    if (authError) {
+      setError("Unable to sign in with those credentials.");
+      return;
+    }
+
+    if (onSignedIn) {
+      onSignedIn("/chat");
+      return;
+    }
+
+    router.push("/chat");
+  }
+
+  return (
+    <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+      <div className="flex flex-col gap-1.5">
+        <label className="font-label-md text-label-md text-on-surface" htmlFor="email">
+          Email
+        </label>
+        <input
+          className="secure-input h-row-height-md w-full rounded border border-outline-variant bg-surface px-3 font-body-md text-body-md text-on-surface transition-all placeholder:text-on-surface-variant/50"
+          id="email"
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="operator@mnemosyne.io"
+          type="email"
+          value={email}
+        />
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <label className="font-label-md text-label-md text-on-surface" htmlFor="password">
+          Password
+        </label>
+        <input
+          className="secure-input h-row-height-md w-full rounded border border-outline-variant bg-surface px-3 font-body-md text-body-md text-on-surface transition-all placeholder:text-on-surface-variant/50"
+          id="password"
+          onChange={(event) => setPassword(event.target.value)}
+          placeholder="••••••••"
+          type="password"
+          value={password}
+        />
+      </div>
+      {error ? (
+        <div className="rounded border border-error/30 bg-error-container px-3 py-2 font-body-sm text-body-sm text-on-error-container">
+          {error}
+        </div>
+      ) : null}
+      <button
+        className="mt-2 flex h-row-height-md w-full items-center justify-center gap-2 rounded bg-primary font-label-bold text-label-bold text-on-primary transition-colors hover:bg-surface-tint disabled:cursor-not-allowed disabled:opacity-70"
+        disabled={loading}
+        type="submit"
+      >
+        {loading ? "Signing In" : "Sign In"}
+        <MaterialIcon size={18}>arrow_forward</MaterialIcon>
+      </button>
+    </form>
+  );
+}
