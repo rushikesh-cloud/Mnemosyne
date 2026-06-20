@@ -33,6 +33,7 @@ We use progressive disclosure. Do not read everything at once. Read the specific
 You must operate via explicit, versioned plans. Throughput is high, so corrections are cheap, but intentionality is required.
 
 * **`PLANS.md`**: The high-level roadmap and current priority queue.
+* **`tasks.md`**: The master task tracker. For every new task, update this file before implementation with the next task ID, milestone, workstream, task, deliverable, dependencies, test cases, initial status, and timestamped notes. Use the same table format and valid status values as the existing tasks. Record the proper date and time in the notes field unless the table is later extended with dedicated timestamp columns.
 * **`docs/exec-plans/active/`**: Your step-by-step execution logs live here. Read the active plan for your task, and update your progress as you complete steps.
 * **`docs/exec-plans/completed/`**: Reference for past decisions and context on shipped features.
 * **`docs/exec-plans/tech-debt-tracker.md`**: Log isolated technical debt here for background garbage collection. Do not get distracted by it during feature sprints.
@@ -45,7 +46,8 @@ You must strictly adhere to the following phase-gate process for **every single 
 
 ### Phase 1: Pre-Flight Synchronization
 1. **Context Initialization:** Identify the domains your task touches.
-2. **Pre-Task Doc Update:** Before writing any code, update the respective `docs/product-specs/`, `docs/exec-plans/active/`, or `ARCHITECTURE.md` files to reflect the incoming task's requirements and intended design.
+2. **Task Tracker Intake:** Before writing any code, update `tasks.md` with the new task configuration in the same style as the existing tasks. Include the proper date and time in the notes field, assign the next task ID, and set the initial status to `pending` or `in progress` as appropriate.
+3. **Pre-Task Doc Update:** Before writing any code, update the respective `docs/product-specs/`, `docs/exec-plans/active/`, or `ARCHITECTURE.md` files to reflect the incoming task's requirements and intended design.
 
 ### Phase 2: Test-Driven Development (TDD) Protocol
 1. **Test Plan:** Draft a clear test plan in your active execution plan document.
