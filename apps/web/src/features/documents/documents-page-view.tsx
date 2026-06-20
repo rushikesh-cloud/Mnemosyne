@@ -1,15 +1,59 @@
 import { MaterialIcon } from "@/components/material-icon";
 import { AppShell, PrimaryButton, StatusBadge, TopIconButton } from "@/features/app/app-shell";
 
-const documents = [
-  ["description", "Q3_Financial_Review_vFINAL.pdf", "PDF", "2023-10-27 14:32:01", "Processing", "65%", "processing"],
-  ["description", "Engineering_Architecture_Specs_2024.docx", "DOCX", "2023-10-27 09:15:44", "Complete", "100%", "success"],
-  ["grid_on", "User_Telemetry_Export_Q2.csv", "CSV", "2023-10-27 15:01:22", "Queued", "0%", "queued"],
-  ["error", "Legacy_System_Dump_Corrupted.txt", "TXT", "2023-10-26 18:45:10", "Failed", "15%", "failed"],
-  ["description", "Onboarding_Guidelines_HR.pdf", "PDF", "2023-10-26 11:20:05", "Complete", "100%", "success"]
-] as const;
+export type DocumentListItem = {
+  id: string;
+  filename: string;
+  fileType: string;
+  uploadedAt: string;
+  status: string;
+  progressPercentage: number;
+};
 
-export function DocumentsPageView() {
+const fallbackDocuments: DocumentListItem[] = [
+  {
+    id: "mock-1",
+    filename: "Q3_Financial_Review_vFINAL.pdf",
+    fileType: "PDF",
+    uploadedAt: "2023-10-27 14:32:01",
+    status: "Processing",
+    progressPercentage: 65
+  },
+  {
+    id: "mock-2",
+    filename: "Engineering_Architecture_Specs_2024.docx",
+    fileType: "DOCX",
+    uploadedAt: "2023-10-27 09:15:44",
+    status: "Complete",
+    progressPercentage: 100
+  },
+  {
+    id: "mock-3",
+    filename: "User_Telemetry_Export_Q2.csv",
+    fileType: "CSV",
+    uploadedAt: "2023-10-27 15:01:22",
+    status: "Queued",
+    progressPercentage: 0
+  },
+  {
+    id: "mock-4",
+    filename: "Legacy_System_Dump_Corrupted.txt",
+    fileType: "TXT",
+    uploadedAt: "2023-10-26 18:45:10",
+    status: "Failed",
+    progressPercentage: 15
+  },
+  {
+    id: "mock-5",
+    filename: "Onboarding_Guidelines_HR.pdf",
+    fileType: "PDF",
+    uploadedAt: "2023-10-26 11:20:05",
+    status: "Complete",
+    progressPercentage: 100
+  }
+];
+
+export function DocumentsPageView({ documents = fallbackDocuments }: { documents?: DocumentListItem[] }) {
   return (
     <AppShell active="Ingestion">
       <main className="flex h-full flex-1 flex-col bg-surface-container-lowest">
@@ -55,20 +99,25 @@ export function DocumentsPageView() {
                 </tr>
               </thead>
               <tbody className="font-body-sm text-body-sm">
-                {documents.map(([icon, name, type, date, status, progress, tone]) => (
-                  <tr className="h-row-height-md border-b border-outline-variant last:border-b-0" key={name}>
+                {documents.map((document) => {
+                  const tone = getStatusTone(document.status);
+                  const icon = tone === "failed" ? "error" : document.fileType === "CSV" ? "grid_on" : "description";
+                  const progress = `${document.progressPercentage}%`;
+
+                  return (
+                  <tr className="h-row-height-md border-b border-outline-variant last:border-b-0" key={document.id}>
                     <td className="px-4">
                       <div className="flex items-center gap-3">
                         <MaterialIcon className={tone === "failed" ? "text-error" : "text-on-surface-variant"} size={20}>
                           {icon}
                         </MaterialIcon>
-                        <span>{name}</span>
+                        <span>{document.filename}</span>
                       </div>
                     </td>
-                    <td className="px-4 text-on-surface-variant">{type}</td>
-                    <td className="px-4 text-on-surface-variant">{date}</td>
+                    <td className="px-4 text-on-surface-variant">{document.fileType}</td>
+                    <td className="px-4 text-on-surface-variant">{document.uploadedAt}</td>
                     <td className="px-4">
-                      <StatusBadge tone={tone}>{status}</StatusBadge>
+                      <StatusBadge tone={tone}>{document.status}</StatusBadge>
                     </td>
                     <td className="px-4">
                       <div className="flex items-center gap-3">
@@ -79,7 +128,8 @@ export function DocumentsPageView() {
                       </div>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
             <div className="flex h-row-height-md items-center justify-between border-t border-outline-variant px-4 font-body-sm text-body-sm text-on-surface-variant">
@@ -109,4 +159,18 @@ export function DocumentsPageView() {
       </main>
     </AppShell>
   );
+}
+
+function getStatusTone(status: string) {
+  const normalized = status.toLowerCase();
+  if (normalized.includes("fail")) {
+    return "failed";
+  }
+  if (normalized.includes("queued") || normalized.includes("upload")) {
+    return "queued";
+  }
+  if (normalized.includes("complete") || normalized.includes("stored")) {
+    return "success";
+  }
+  return "processing";
 }

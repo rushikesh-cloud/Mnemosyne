@@ -7,7 +7,7 @@
     "dev": "pnpm --filter @mnemosyne/web dev",
     "build": "pnpm --filter @mnemosyne/web build",
     "lint": "pnpm --filter @mnemosyne/web lint",
-    "typecheck": "pnpm --filter @mnemosyne/web typecheck",
+    "typecheck": "pnpm --filter @mnemosyne/web typecheck && pnpm --filter @mnemosyne/worker typecheck",
     "test": "pnpm --filter @mnemosyne/web test",
     "test:coverage": "pnpm --filter @mnemosyne/web test:coverage"
   }

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["es2022", "dom"],
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "ignoreDeprecations": "6.0",
+    "baseUrl": "."
+  },
+  "include": [
+    "src/**/*.ts",
+    "../web/src/lib/documents/embeddings.ts",
+    "../web/src/lib/documents/ingestion.ts",
+    "../web/src/lib/documents/parsers.ts",
+    "../web/src/lib/documents/queue.ts",
+    "../web/src/lib/documents/repository.ts",
+    "../web/src/lib/documents/vector-store.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

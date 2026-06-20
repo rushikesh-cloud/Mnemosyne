@@ -47,11 +47,19 @@ This task implements Milestone 2 and Milestone 3 together because the upload, wo
 
 ## Status
 
-`in progress`
+`completed`
 
 ## Verification
 
-- RED gate pending.
+- Confirmed RED state before implementation: `pnpm test` failed because the ingestion modules, upload API service, migration file, and data-driven document UI behavior did not exist.
+- Confirmed GREEN state after implementation: `pnpm test` passed with 25 tests across auth, route guards, Stitch page landmarks, upload validation/API behavior, ingestion pipeline behavior, migration contract, and document UI data behavior.
+- Confirmed coverage: `pnpm test:coverage` passed with global coverage above configured thresholds.
+- Confirmed static gates: `pnpm typecheck` passed for both `@mnemosyne/web` and `@mnemosyne/worker`; `pnpm lint` passed for `@mnemosyne/web`; `pnpm build` passed for `@mnemosyne/web`.
+- Confirmed route output includes dynamic `/api/documents`, `/documents`, and `/documents/[id]`.
+- Confirmed rendered document QA with Playwright against `next start` on `http://localhost:3003` with `MNEMOSYNE_AUTH_BYPASS=1`: `/documents` and `/documents/mock-detail` rendered nonblank desktop/mobile states, produced no console warnings/errors, and chunk search filtered the right-side chunk panel.
+- Added Supabase migration `20260620100100_document_ingestion.sql` for tenant-owned document tables, private source bucket, and RLS policies.
+- Added BullMQ worker entrypoint in `apps/worker` for ingestion jobs.
+- Added server environment fallback for Google embeddings and Pinecone until encrypted user settings ship in Milestone 5.
 
 ## Completion Criteria
 
