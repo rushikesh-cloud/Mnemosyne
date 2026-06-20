@@ -9,7 +9,7 @@ describe("settings data view", () => {
       <SettingsPageView
         settings={{
           googleApiKey: "••••••••",
-          embeddingModelName: "text-embedding-004",
+          embeddingModelName: "gemini-embedding-001",
           pineconeApiKey: "••••••••",
           pineconeIndexName: "mnemosyne-prod",
           pineconeHost: "us-east-1",

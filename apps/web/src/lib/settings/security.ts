@@ -117,7 +117,7 @@ export function prepareSettingsUpsert(input: {
 export function settingsRowToSafeView(settingsRow: SettingsRow | null, mcpRows: McpServerRow[]): SafeSettingsView {
   return {
     googleApiKey: settingsRow?.google_api_key_encrypted ? mask : "",
-    embeddingModelName: settingsRow?.embedding_model_name || "text-embedding-004",
+    embeddingModelName: settingsRow?.embedding_model_name || "gemini-embedding-001",
     pineconeApiKey: settingsRow?.pinecone_api_key_encrypted ? mask : "",
     pineconeIndexName: settingsRow?.pinecone_index_name || "",
     pineconeHost: settingsRow?.pinecone_host || "",

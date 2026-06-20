@@ -26,7 +26,7 @@ set
 create table if not exists public.user_settings (
   user_id uuid primary key references auth.users(id) on delete cascade,
   google_api_key text,
-  embedding_model_name text not null default 'text-embedding-004',
+  embedding_model_name text not null default 'gemini-embedding-001',
   pinecone_key text,
   pinecone_environment text,
   pinecone_index_name text,

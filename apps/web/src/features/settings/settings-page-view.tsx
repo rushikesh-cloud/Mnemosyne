@@ -25,7 +25,7 @@ export type SettingsView = {
 
 const fixtureSettings: SettingsView = {
   googleApiKey: "",
-  embeddingModelName: "text-embedding-004",
+  embeddingModelName: "gemini-embedding-001",
   pineconeApiKey: "",
   pineconeIndexName: "",
   pineconeHost: "",
@@ -119,7 +119,7 @@ export function SettingsPageView({ settings = fixtureSettings }: { settings?: Se
                 id="embedding-model"
                 defaultValue={settings.embeddingModelName}
               >
-                <option value="text-embedding-004">models/text-embedding-004 (Google)</option>
+                <option value="gemini-embedding-001">models/gemini-embedding-001 (Google)</option>
                 <option value="text-embedding-3-small">text-embedding-3-small (OpenAI)</option>
                 <option value="text-embedding-3-large">text-embedding-3-large (OpenAI)</option>
                 <option value="nomic-embed-text">nomic-embed-text (Local)</option>

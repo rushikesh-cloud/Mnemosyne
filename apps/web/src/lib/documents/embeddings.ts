@@ -4,7 +4,7 @@ import type { EmbeddingClient } from "./ingestion";
 
 export function createEmbeddingClientFromEnv(): EmbeddingClient {
   const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_API_KEY;
-  const modelName = process.env.MNEMOSYNE_EMBEDDING_MODEL || "text-embedding-004";
+  const modelName = process.env.MNEMOSYNE_EMBEDDING_MODEL || "gemini-embedding-001";
 
   if (!apiKey) {
     throw new Error("Google API key is required for document embeddings.");

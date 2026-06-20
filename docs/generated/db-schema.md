@@ -21,7 +21,7 @@ Managed by Supabase Auth.
 |---|---|---|
 | `user_id` | `uuid` | Primary key, references `auth.users.id`. |
 | `google_api_key_encrypted` | `text` | AES-GCM encrypted Gemini API key. |
-| `embedding_model_name` | `text` | Defaults to `text-embedding-004`. |
+| `embedding_model_name` | `text` | Defaults to `gemini-embedding-001`. |
 | `pinecone_api_key_encrypted` | `text` | AES-GCM encrypted Pinecone API key. |
 | `pinecone_host` | `text` | Pinecone environment, host, or deployment target. |
 | `pinecone_index_name` | `text` | Pinecone index name. |

@@ -9,7 +9,7 @@ export function createQueryEmbeddingClientFromEnv() {
         throw new Error("Google API key is required for RAG retrieval.");
       }
 
-      const modelName = process.env.MNEMOSYNE_EMBEDDING_MODEL || "text-embedding-004";
+      const modelName = process.env.MNEMOSYNE_EMBEDDING_MODEL || "gemini-embedding-001";
       const model = new GoogleGenerativeAI(apiKey).getGenerativeModel({ model: modelName });
       const result = await model.embedContent(query);
       return result.embedding.values;

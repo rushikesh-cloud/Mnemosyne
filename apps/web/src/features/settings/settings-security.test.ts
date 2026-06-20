@@ -23,7 +23,7 @@ describe("settings security", () => {
       encryptionKey: key,
       input: {
         googleApiKey: "google-secret",
-        embeddingModelName: "text-embedding-004",
+        embeddingModelName: "gemini-embedding-001",
         pineconeApiKey: "pinecone-secret",
         pineconeIndexName: "mnemosyne-prod",
         pineconeHost: "us-east-1",
@@ -59,7 +59,7 @@ describe("settings security", () => {
       {
         user_id: "user-1",
         google_api_key_encrypted: encrypted,
-        embedding_model_name: "text-embedding-004",
+        embedding_model_name: "gemini-embedding-001",
         pinecone_api_key_encrypted: null,
         pinecone_index_name: "mnemosyne-prod",
         pinecone_host: "us-east-1",
