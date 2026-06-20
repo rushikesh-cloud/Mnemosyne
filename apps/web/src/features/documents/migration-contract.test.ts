@@ -21,3 +21,24 @@ describe("document ingestion database migration", () => {
     expect(migration).toContain("private/{user_id}/{document_id}/{filename}");
   });
 });
+
+const chatSettingsMigration = readFileSync(
+  join(process.cwd(), "../../supabase/migrations/20260620102200_chat_settings_mcp.sql"),
+  "utf8"
+);
+
+describe("chat and settings database migration", () => {
+  it("creates tenant-owned chat, encrypted settings, and MCP tables with RLS policies", () => {
+    for (const table of ["chat_sessions", "messages", "mcp_servers"]) {
+      expect(chatSettingsMigration).toContain(`create table if not exists public.${table}`);
+      expect(chatSettingsMigration).toContain(`alter table public.${table} enable row level security`);
+    }
+
+    expect(chatSettingsMigration).toContain("google_api_key_encrypted");
+    expect(chatSettingsMigration).toContain("pinecone_api_key_encrypted");
+    expect(chatSettingsMigration).toContain("langsmith_api_key_encrypted");
+    expect(chatSettingsMigration).toContain("encrypted_headers");
+    expect(chatSettingsMigration).toContain("auth.uid() = user_id");
+    expect(chatSettingsMigration).toContain("chat_sessions.user_id = auth.uid()");
+  });
+});

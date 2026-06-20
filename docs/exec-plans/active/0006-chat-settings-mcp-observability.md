@@ -54,11 +54,18 @@ This task implements Milestone 4 and Milestone 5 together because persisted chat
 
 ## Status
 
-`in progress`
+`completed`
 
 ## Verification
 
-- Pending RED validation.
+- Confirmed RED state before implementation: `pnpm test` failed on missing chat/settings runtime modules and mock-only chat/settings UI behavior.
+- Confirmed GREEN state after implementation: `pnpm test` passed with 36 tests across auth, route guards, Stitch landmarks, ingestion, migration contracts, chat runtime, settings encryption, and data-driven chat/settings UI.
+- Confirmed coverage: `pnpm test:coverage` passed with global coverage above configured thresholds.
+- Confirmed static gates: `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
+- Confirmed route output includes `/api/chat`, `/api/settings`, `/chat`, and `/settings`.
+- Confirmed rendered chat/settings QA with Playwright fallback against `next start` on `http://localhost:3004` with `MNEMOSYNE_AUTH_BYPASS=1`: `/chat` and `/settings` rendered expected landmarks, produced no console warnings/errors, and screenshots were captured at `/tmp/mnemosyne-chat-m45.png` and `/tmp/mnemosyne-settings-m45.png`.
+- Added `@modelcontextprotocol/sdk` and `langsmith` dependencies for Milestone 5 backend integration.
+- Added Supabase migration `20260620102200_chat_settings_mcp.sql` for chat sessions, messages, encrypted settings columns, MCP servers, and RLS policies.
 
 ## Completion Criteria
 

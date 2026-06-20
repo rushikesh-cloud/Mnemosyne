@@ -20,13 +20,12 @@ Managed by Supabase Auth.
 | Column | Type | Notes |
 |---|---|---|
 | `user_id` | `uuid` | Primary key, references `auth.users.id`. |
-| `google_api_key` | `text` | Encrypted at rest. |
+| `google_api_key_encrypted` | `text` | AES-GCM encrypted Gemini API key. |
 | `embedding_model_name` | `text` | Defaults to `text-embedding-004`. |
-| `pinecone_key` | `text` | Encrypted at rest. |
-| `pinecone_environment` | `text` | Pinecone environment or deployment target. |
+| `pinecone_api_key_encrypted` | `text` | AES-GCM encrypted Pinecone API key. |
+| `pinecone_host` | `text` | Pinecone environment, host, or deployment target. |
 | `pinecone_index_name` | `text` | Pinecone index name. |
-| `langsmith_key` | `text` | Encrypted at rest. |
-| `mcp_config` | `jsonb` | User MCP server URLs and encrypted credential references. |
+| `langsmith_api_key_encrypted` | `text` | AES-GCM encrypted LangSmith API key. |
 | `created_at` | `timestamptz` | Creation timestamp. |
 | `updated_at` | `timestamptz` | Last update timestamp. |
 
@@ -105,6 +104,7 @@ Tenant rule: object names must follow `private/{user_id}/{document_id}/{filename
 | `selected_model` | `text` | Gemini model selected for this session. |
 | `thinking_level` | `text` | Reasoning effort setting where supported. |
 | `created_at` | `timestamptz` | Creation timestamp. |
+| `updated_at` | `timestamptz` | Last activity timestamp. |
 
 Tenant rule: row owner is `user_id`.
 
@@ -117,6 +117,24 @@ Tenant rule: row owner is `user_id`.
 | `role` | `text` | `user`, `assistant`, or `tool`. |
 | `content` | `text` | Message content. |
 | `tool_calls` | `jsonb` | Tool call metadata and traces. |
+| `event_log` | `jsonb` | Structured thinking, tool-call, token, final, and error events. |
+| `sequence_number` | `integer` | Stable message order within the session. |
+| `status` | `text` | `complete` or `failed`. |
 | `created_at` | `timestamptz` | Creation timestamp. |
 
 Tenant rule: tenant is inherited through `chat_sessions.user_id`.
+
+### `mcp_servers`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | `uuid` | Primary key. |
+| `user_id` | `uuid` | References `auth.users.id`. |
+| `name` | `text` | User-visible MCP server name. |
+| `endpoint_url` | `text` | Streamable HTTP MCP endpoint. |
+| `encrypted_headers` | `text` | AES-GCM encrypted connection headers or credentials. |
+| `status` | `text` | Current configuration status. |
+| `created_at` | `timestamptz` | Creation timestamp. |
+| `updated_at` | `timestamptz` | Last update timestamp. |
+
+Tenant rule: row owner is `user_id`.
