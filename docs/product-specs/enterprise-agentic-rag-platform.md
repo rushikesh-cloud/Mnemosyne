@@ -49,6 +49,7 @@ Mnemosyne is an enterprise-grade Agentic Retrieval-Augmented Generation platform
 - Display transparent thinking states and explicit tool-call logs.
 - Provide a RAG retriever tool scoped to the current user's Pinecone namespace.
 - Provide MCP tools from user-configured MCP servers through the backend.
+- Streaming chat events must be structured so clients can distinguish thinking updates, tool calls, token deltas, final messages, and recoverable errors.
 
 ### Settings And Observability
 
@@ -56,6 +57,7 @@ Mnemosyne is an enterprise-grade Agentic Retrieval-Augmented Generation platform
 - Store sensitive settings encrypted at rest.
 - Initialize Gemini, embeddings, Pinecone, LangSmith, and MCP connections from saved settings.
 - Trace agent reasoning, token usage, and tool latency with LangSmith when configured.
+- Saved secret values must reload to the browser only as masked presence indicators, never plaintext.
 
 ## Acceptance Criteria
 
