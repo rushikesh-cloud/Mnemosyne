@@ -32,6 +32,7 @@ Mnemosyne is an enterprise-grade Agentic Retrieval-Augmented Generation platform
 - Parse files into one Markdown string with LangChain community document loaders.
 - Chunk Markdown, generate embeddings, upsert vectors to Pinecone, and store Markdown/chunks in PostgreSQL.
 - Publish granular job progress through `document_jobs` for Supabase Realtime subscriptions.
+- The first Milestone 2/3 implementation may use server environment defaults for embedding and Pinecone configuration until encrypted user settings ship in Milestone 5; missing configuration must fail the ingestion job with clear remediation and without corrupting document state.
 
 ### Document Management
 
@@ -65,4 +66,3 @@ Mnemosyne is an enterprise-grade Agentic Retrieval-Augmented Generation platform
 - Tool calls and thinking states are visible in the chat UI.
 - Missing settings fail with clear remediation instead of generic errors.
 - Tailwind CSS is used for frontend styling and reusable UI components.
-
