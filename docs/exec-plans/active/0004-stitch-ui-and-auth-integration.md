@@ -55,7 +55,20 @@ The design source of truth is the Stitch project `Mnemosyne UI Mockup Catalog` (
 
 ## Status
 
-`in progress`
+`completed`
+
+## Verification
+
+- Confirmed RED state before implementation: `pnpm test` failed because the planned auth, route guard, and Stitch page modules did not exist.
+- Confirmed GREEN state after implementation: `pnpm test` passed with 13 tests across auth, route guard, and Stitch page landmark coverage.
+- Confirmed coverage: `pnpm test:coverage` passed with global coverage above configured thresholds.
+- Confirmed static gates: `pnpm typecheck`, `pnpm lint`, and `pnpm build` passed.
+- Confirmed Next route output includes `/`, `/auth/sign-in`, `/auth/sign-up`, `/chat`, `/documents`, `/documents/[id]`, and `/settings`.
+- Confirmed rendered browser checks with Playwright fallback because the Browser plugin was not available. Screenshots were captured for sign-in, sign-up, chat, documents, document detail, settings, and mobile chat at `/tmp/mnemosyne-*.png`.
+- Confirmed no relevant browser console warnings or errors during rendered checks.
+- Confirmed all expected visual landmarks appeared in rendered screenshots after fixing the mobile chat model selector visibility.
+- Added `MNEMOSYNE_AUTH_BYPASS=1` as a server-only local visual QA escape hatch; normal default behavior still redirects unauthenticated protected routes.
+- Configured Next dev/build scripts to use webpack mode because Turbopack failed route compilation in this pnpm workspace while webpack passed build and rendered QA.
 
 ## Completion Criteria
 

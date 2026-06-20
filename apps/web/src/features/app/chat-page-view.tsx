@@ -12,8 +12,6 @@ const sessions = [
 ] as const;
 
 export function ChatPageView() {
-  let lastGroup = "";
-
   return (
     <AppShell active="Workbench">
       <aside className="hidden h-full w-sidebar-width shrink-0 flex-col border-r border-outline-variant bg-surface-container-lowest md:flex">
@@ -28,9 +26,8 @@ export function ChatPageView() {
           </button>
         </div>
         <div className="flex-1 space-y-1 overflow-y-auto px-2 pb-4">
-          {sessions.map(([group, title, description, selected]) => {
-            const showGroup = group !== lastGroup;
-            lastGroup = group;
+          {sessions.map(([group, title, description, selected], index) => {
+            const showGroup = index === 0 || sessions[index - 1][0] !== group;
             return (
               <div key={title}>
                 {showGroup ? (
@@ -58,9 +55,9 @@ export function ChatPageView() {
         <header className="sticky top-0 z-40 flex h-row-height-md w-full items-center justify-between border-b border-outline-variant bg-surface-container-lowest px-padding-standard">
           <div className="flex items-center gap-2">
             <TopIconButton icon="menu" label="Open menu" />
-            <div className="hidden items-center gap-2 sm:flex">
+            <div className="flex min-w-0 items-center gap-2">
               <span className="font-label-md text-label-md text-on-surface-variant">Model</span>
-              <select className="h-8 rounded border border-outline-variant bg-surface px-2 font-body-sm text-body-sm">
+              <select className="h-8 max-w-[150px] rounded border border-outline-variant bg-surface px-2 font-body-sm text-body-sm sm:max-w-none">
                 <option>Gemini 1.5 Pro</option>
                 <option>Gemini 1.5 Flash</option>
                 <option>Mnemosyne Internal</option>

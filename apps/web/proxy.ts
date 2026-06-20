@@ -3,13 +3,17 @@ import { createServerClient } from "@supabase/ssr";
 
 import { getProtectedRedirect } from "@/lib/auth/route-guards";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({
     request
   });
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (process.env.MNEMOSYNE_AUTH_BYPASS === "1") {
+    return response;
+  }
 
   if (!supabaseUrl || !supabaseAnonKey) {
     const redirectPath = getProtectedRedirect(null, request.nextUrl.pathname);

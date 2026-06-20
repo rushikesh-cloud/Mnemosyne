@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "lint": "next lint",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
@@ -20,12 +20,14 @@
   "devDependencies": {
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
+    "@playwright/test": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react": "latest",
+    "@vitest/coverage-v8": "latest",
     "@tailwindcss/postcss": "latest",
-    "eslint": "latest",
+    "eslint": "^9.39.2",
     "eslint-config-next": "latest",
     "jsdom": "latest",
     "tailwindcss": "latest",

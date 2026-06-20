@@ -6,6 +6,21 @@ This catalog defines the planned UI mockup direction for the core Mnemosyne appl
 
 Mnemosyne should feel like an enterprise knowledge operations workbench: compact, secure, transparent, and built for repeated use by people who need to inspect source material, ingestion quality, and agent behavior with confidence.
 
+## Stitch Source Mapping
+
+The first implementation pass uses the Stitch project `Mnemosyne UI Mockup Catalog` (`projects/8143223870574927493`) as the visual source of truth.
+
+| Route | Stitch Source |
+|---|---|
+| `/auth/sign-in` | `Sign In | Mnemosyne` |
+| `/auth/sign-up` | Derived from `Sign In | Mnemosyne` because Stitch has no distinct sign-up screen. |
+| `/chat` | `Chat | Mnemosyne` |
+| `/documents` | `Documents | Mnemosyne` |
+| `/documents/[id]` | `Document Detail | Mnemosyne` |
+| `/settings` | `Settings | Mnemosyne` |
+
+The Stitch screen `Mnemosyne Ops Workbench` renders duplicate sign-in HTML and is not treated as a separate route.
+
 ## Shared Visual System
 
 ### Product Tone
