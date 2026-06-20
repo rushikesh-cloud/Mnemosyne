@@ -28,3 +28,10 @@ Mnemosyne is planned as a TypeScript monorepo with a Next.js web app, a Node.js 
 - Raw source files, Markdown, chunks, vectors, messages, and settings must be isolated by tenant.
 - Secrets must never be sent back to the browser in plaintext after save.
 
+## Deployment Runtime
+
+- Azure Container Apps hosts the staging runtime for the current release readiness pass.
+- The web app and ingestion worker are deployed as separate Container Apps from separate targets in the same root Dockerfile.
+- Azure Container Registry stores deployable images for the resource group.
+- Runtime secrets are injected through Azure Container Apps or GitHub Actions secrets, never through committed environment files.
+- The web app exposes a lightweight `/api/health` endpoint for container and smoke-test verification.
